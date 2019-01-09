@@ -3,6 +3,7 @@ package com.example.prem.videoapp.util
 import android.content.Context
 import android.util.TypedValue
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 
 fun View.setMargin(left: Int? = null, top: Int? = null, right: Int? = null, bottom: Int? = null) {
     layoutParams = (layoutParams as? ViewGroup.MarginLayoutParams)?.apply {
@@ -27,4 +28,13 @@ fun View.makeInvisible() {
 
 fun View.makeGone() {
     if (visibility != View.GONE) visibility = View.GONE
+}
+
+fun Context.shoErrorAlertDialog(errorMessage: String) {
+    AlertDialog.Builder(this)
+        .setTitle("Error!")
+        .setMessage(errorMessage)
+        .setCancelable(true)
+        .setPositiveButton("Okay") { dialog, _ -> dialog.dismiss() }
+        .show()
 }

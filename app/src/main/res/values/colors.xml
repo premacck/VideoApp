@@ -13,4 +13,13 @@
     <color name="color_grey_666">#666666</color>
     <color name="color_grey_999">#999999</color>
     <color name="off_white">#b3ffffff</color>
+
+    <color name="animationColor1">#00897B</color>
+    <color name="animationColor12">#009688</color>
+    <color name="animationColor2">#7CB342</color>
+    <color name="animationColor3">#FB8C00</color>
+    <color name="animationColor4">#0277bd</color>
+    <color name="animationColor42">#0288d1</color>
+    <color name="animationColor5">#FF7043</color>
+    <color name="animationColor6">#004b79</color>
 </resources>
