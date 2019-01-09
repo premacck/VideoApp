@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import com.example.prem.videoapp.R
+import com.example.prem.videoapp.base.BaseActivity
+import com.example.prem.videoapp.data.local.getSavedVideoPlaybackTime
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -68,6 +70,11 @@ fun SimpleExoPlayer.withExtractorMediaSource(context: Context, videoUrl: String)
             DefaultDataSourceFactory(context, Util.getUserAgent(context, context.getString(R.string.app_name)))
         ).createMediaSource(Uri.parse(videoUrl))
     )
+    return this
+}
+
+fun SimpleExoPlayer.resolveCurrentPosition(activity: BaseActivity, id: Long): SimpleExoPlayer {
+    seekTo(activity.getSavedVideoPlaybackTime(id.toString()))
     return this
 }
 

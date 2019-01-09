@@ -8,7 +8,7 @@ import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
 import com.example.prem.videoapp.R
 import com.example.prem.videoapp.data.local.Video
-import com.example.prem.videoapp.util.onElevatingClick
+import com.example.prem.videoapp.util.onDebouncingClick
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_video_thumb_detail.view.*
 
@@ -32,5 +32,5 @@ class NextVideoModelView @JvmOverloads constructor(
     }
 
     @ModelProp(options = [ModelProp.Option.DoNotHash])
-    fun onClick(action: () -> Unit) = onElevatingClick { action() }
+    fun onClick(action: () -> Unit) = root_layout.onDebouncingClick(action)
 }

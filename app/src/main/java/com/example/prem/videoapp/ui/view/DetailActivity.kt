@@ -1,6 +1,8 @@
 package com.example.prem.videoapp.ui.view
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
@@ -14,6 +16,7 @@ import com.example.prem.videoapp.util.*
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 
@@ -40,6 +43,8 @@ class DetailActivity : BaseActivity() {
         setContentView(R.layout.activity_detail)
         resolveIntentParams()
         initRecyclerView()
+
+        back_btn.onDebouncingClick { onBackPressed() }
     }
 
     override fun onStart() {
@@ -83,7 +88,7 @@ class DetailActivity : BaseActivity() {
             videosList.remove(currentVideo)
             val thumb = Picasso.get().load(currentVideo.thumb).get()
             uiThread {
-                applySystemTheme(Palette.from(thumb).generate())
+                applyColors(Palette.from(thumb).generate())
 
                 video_loading_progress.makeGone()
                 video_player_container.setAspectRatio(thumb.width / thumb.height.toFloat())
@@ -98,10 +103,17 @@ class DetailActivity : BaseActivity() {
         }
     }
 
-    private fun applySystemTheme(palette: Palette) {
+    @Suppress("DEPRECATION")
+    private fun applyColors(palette: Palette) {
+        val dominantDarkColor = palette.getDarkVibrantColor(resources.getColor(R.color.primary_dark))
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        @Suppress("DEPRECATION")
-        window.statusBarColor = palette.getDarkVibrantColor(resources.getColor(R.color.primary_dark))
+        window.statusBarColor = dominantDarkColor
+
+        top_bar_layout.backgroundColor = dominantDarkColor
+        video_player_container.background = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM,
+            intArrayOf(dominantDarkColor, Color.TRANSPARENT)
+        )
     }
 
     private fun prepareCurrentVideo() {
@@ -109,6 +121,7 @@ class DetailActivity : BaseActivity() {
             .withExtractorMediaSource(this, currentVideo.url)
             .withContainer(video_player_container)
             .applyTo(video_player)
+            .resolveCurrentPosition(this, currentVideo.id)
             .addPlayPauseListener(video_player, play_pause, video_loading_progress, this::onCurrentVideoEnded)
     }
 

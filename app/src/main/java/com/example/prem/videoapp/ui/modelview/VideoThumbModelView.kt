@@ -32,5 +32,5 @@ class VideoThumbModelView @JvmOverloads constructor(
     }
 
     @ModelProp(options = [ModelProp.Option.DoNotHash])
-    fun onClick(action: () -> Unit) = root_layout.onDebouncingClick { action() }
+    fun onClick(action: () -> Unit) = root_layout.onDebouncingClick(action)
 }

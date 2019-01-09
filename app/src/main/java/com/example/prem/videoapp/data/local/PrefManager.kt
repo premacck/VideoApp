@@ -54,4 +54,4 @@ fun Context.logoutUser() {
 fun Context.saveVideoPlayBackTime(id: String, currentPosition: Long) =
     getSharedPrefs().edit().putLong(VIDEO_PLAYBACK_TIME + id, currentPosition).apply()
 
-fun Context.getVideoPlaybackTime(id: String): Long = getSharedPrefs().getLong(VIDEO_PLAYBACK_TIME + id, 0)
+fun Context.getSavedVideoPlaybackTime(id: String): Long = getSharedPrefs().getLong(VIDEO_PLAYBACK_TIME + id, 0)
