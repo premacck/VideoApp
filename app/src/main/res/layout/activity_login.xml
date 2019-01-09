@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    style="@style/MatchWidthMatchHeight"
+    android:background="@drawable/bg_login"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        style="@style/MatchWidthMatchHeight"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/WrapWidthWrapHeight"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="monospace"
+            android:text="@string/sign_in"
+            android:textAllCaps="true"
+            android:textColor="@color/primary_light"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/google_login"
+            style="@style/WrapWidthWrapHeight"
+            android:background="@drawable/bg_button_accent"
+            android:drawableStart="@drawable/ic_google"
+            android:drawablePadding="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/connect_with_google"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

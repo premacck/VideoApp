@@ -24,6 +24,9 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        manifestPlaceholders = [
+                googleWebClientId: "652095162119-emsnhcu9j0u9iuj5fu6alqiqu31t1vmi.apps.googleusercontent.com"
+        ]
     }
     buildTypes {
         release {
@@ -53,4 +56,5 @@ dependencies {
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
     implementation 'com.google.android.exoplayer:exoplayer:2.9.3'
+    implementation 'com.jaychang:simpleauth-google:2.1.4'
 }
