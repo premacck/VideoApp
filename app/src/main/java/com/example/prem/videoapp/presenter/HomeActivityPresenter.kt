@@ -10,6 +10,10 @@ import org.jetbrains.anko.*
 
 class HomeActivityPresenter constructor(context: Context) {
 
+    private val listener: HomePresenterListener by lazy {
+        (context as? HomePresenterListener)
+            ?: throw RuntimeException(context.toString() + " must implement HomePresenterListener")
+    }
     private val requestQueue: RequestQueue by lazy {
         Volley.newRequestQueue(context.applicationContext)
     }
@@ -18,27 +22,36 @@ class HomeActivityPresenter constructor(context: Context) {
         @Volatile
         private var INSTANCE: HomeActivityPresenter? = null
 
-        fun getInstance(context: Context) =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: HomeActivityPresenter(context).also {
-                    INSTANCE = it
-                }
+        fun getInstance(context: Context) = INSTANCE ?: synchronized(this) {
+            INSTANCE ?: HomeActivityPresenter(context).also {
+                INSTANCE = it
             }
+        }
     }
 
-    fun getVideos(responseAction: (List<Video>) -> Unit, errorAction: (VolleyError) -> Unit) {
+    fun getVideos() {
+        listener.onRequestStarted()
         doAsync {
-            val videosRequest = JsonArrayRequest(
-                Request.Method.GET,
+            val videosRequest = JsonArrayRequest(Request.Method.GET,
                 "https://interview-e18de.firebaseio.com/media.json",
                 null,
                 Response.Listener { response ->
                     uiThread {
-                        responseAction(GSON.fromJson(response.toString(), object : TypeToken<List<Video>>() {}.type))
+                        listener.onRequestDone()
+                        listener.handleResponse(
+                            GSON.fromJson(
+                                response.toString(),
+                                object : TypeToken<List<Video>>() {}.type
+                            )
+                        )
                     }
                 },
-                Response.ErrorListener { error -> uiThread { errorAction(error) } }
-            )
+                Response.ErrorListener { error ->
+                    uiThread {
+                        listener.onRequestDone()
+                        listener.handleError(error)
+                    }
+                })
             addToRequestQueue(videosRequest)
         }
     }

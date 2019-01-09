@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import com.airbnb.epoxy.ModelProp
 import com.airbnb.epoxy.ModelView
 import com.example.prem.videoapp.R
+import com.example.prem.videoapp.util.getDp
 import com.example.prem.videoapp.util.setMargin
 import kotlinx.android.synthetic.main.item_text_view.view.*
 
@@ -29,11 +30,11 @@ class TextModelView @JvmOverloads constructor(
 
     @ModelProp
     fun withVerticalMargins(margin: Int) {
-        text_view.setMargin(null, margin, null, margin)
+        text_view.setMargin(null, getDp(margin.toFloat()).toInt(), null, getDp(margin.toFloat()).toInt())
     }
 
     @ModelProp
     fun withHorizontalMargins(margin: Int) {
-        text_view.setMargin(margin, null, margin, null)
+        text_view.setMargin(getDp(margin.toFloat()).toInt(), null, getDp(margin.toFloat()).toInt(), null)
     }
 }
