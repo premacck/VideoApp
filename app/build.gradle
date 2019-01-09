@@ -52,4 +52,5 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.0'
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+    implementation 'com.google.android.exoplayer:exoplayer:2.9.3'
 }

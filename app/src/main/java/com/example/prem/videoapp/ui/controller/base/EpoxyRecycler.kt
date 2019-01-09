@@ -1,4 +1,4 @@
-package com.example.prem.videoapp.ui.controller
+package com.example.prem.videoapp.ui.controller.base
 
 import android.content.Context
 import android.util.AttributeSet

@@ -3,11 +3,12 @@ package com.example.prem.videoapp.ui.modelview
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.*
-import com.airbnb.epoxy.*
+import android.widget.FrameLayout
+import com.airbnb.epoxy.ModelProp
+import com.airbnb.epoxy.ModelView
 import com.example.prem.videoapp.R
 import com.example.prem.videoapp.util.setMargin
-import org.jetbrains.anko.find
+import kotlinx.android.synthetic.main.item_text_view.view.*
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class TextModelView @JvmOverloads constructor(
@@ -17,11 +18,8 @@ class TextModelView @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    lateinit var text_view: TextView
-
     init {
         View.inflate(context, R.layout.item_text_view, this)
-        text_view = find(R.id.text_view)
     }
 
     @ModelProp(options = [ModelProp.Option.GenerateStringOverloads])

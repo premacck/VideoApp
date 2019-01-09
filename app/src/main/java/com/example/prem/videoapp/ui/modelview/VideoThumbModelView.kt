@@ -3,12 +3,13 @@ package com.example.prem.videoapp.ui.modelview
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import android.widget.*
-import com.airbnb.epoxy.*
+import android.widget.FrameLayout
+import com.airbnb.epoxy.ModelProp
+import com.airbnb.epoxy.ModelView
 import com.example.prem.videoapp.R
 import com.example.prem.videoapp.data.local.Video
 import com.squareup.picasso.Picasso
-import org.jetbrains.anko.find
+import kotlinx.android.synthetic.main.item_video_thumbnail.view.*
 
 @ModelView(autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class VideoThumbModelView @JvmOverloads constructor(
@@ -18,15 +19,8 @@ class VideoThumbModelView @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    var video_thumbnail: ImageView
-    var video_title: TextView
-    var video_description: TextView
-
     init {
         View.inflate(context, R.layout.item_video_thumbnail, this)
-        video_thumbnail = find(R.id.video_thumbnail)
-        video_title = find(R.id.video_title)
-        video_description = find(R.id.video_description)
     }
 
     @ModelProp
