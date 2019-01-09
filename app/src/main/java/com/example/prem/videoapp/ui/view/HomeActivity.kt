@@ -38,12 +38,10 @@ class HomeActivity : BaseActivity(), HomePresenterListener {
     override fun onRequestStarted() {
         shimmer_layout.startShimmerAnimation()
         shimmer_view.makeVisible()
-        videos_list.makeInvisible()
     }
 
     override fun onRequestDone() {
         shimmer_layout.stopShimmerAnimation()
         shimmer_view.makeGone()
-        videos_list.makeVisible()
     }
 }
