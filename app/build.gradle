@@ -23,6 +23,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
+        multiDexEnabled true
         versionName "1.0"
         manifestPlaceholders = [
                 googleWebClientId: "652095162119-emsnhcu9j0u9iuj5fu6alqiqu31t1vmi.apps.googleusercontent.com"
@@ -47,8 +48,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.anko:anko:0.10.8'
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.palette:palette:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.code.gson:gson:2.8.5'

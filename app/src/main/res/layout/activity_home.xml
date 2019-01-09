@@ -13,7 +13,6 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:context=".ui.view.HomeActivity"
         tools:listitem="@layout/item_video_thumbnail" />
 
     <include

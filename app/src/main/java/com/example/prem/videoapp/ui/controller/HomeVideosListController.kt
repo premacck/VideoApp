@@ -1,18 +1,21 @@
 package com.example.prem.videoapp.ui.controller
 
 import com.airbnb.epoxy.AutoModel
+import com.example.prem.videoapp.base.BaseActivity
 import com.example.prem.videoapp.data.local.Video
 import com.example.prem.videoapp.ui.controller.base.EpoxyController3
 import com.example.prem.videoapp.ui.modelview.TextModelViewModel_
 import com.example.prem.videoapp.ui.modelview.VideoThumbModelViewModel_
+import com.example.prem.videoapp.ui.view.DetailActivity
 
-class HomeVideosListController : EpoxyController3<List<Video>, Boolean, String>() {
+class HomeVideosListController(private val activity: BaseActivity) : EpoxyController3<ArrayList<Video>, Boolean, String>() {
 
     @AutoModel
     lateinit var textModelView: TextModelViewModel_
 
-    override fun buildModels(videosList: List<Video>?, isError: Boolean, errorMessage: String?) {
-        textModelView.withText(errorMessage)
+    override fun buildModels(videosList: ArrayList<Video>?, isError: Boolean, errorMessage: String?) {
+        textModelView
+            .withText(errorMessage)
             .withVerticalMargins(100)
             .addIf((videosList.isNullOrEmpty() || isError) && errorMessage.isNullOrEmpty(), this)
 
@@ -20,6 +23,7 @@ class HomeVideosListController : EpoxyController3<List<Video>, Boolean, String>(
             VideoThumbModelViewModel_()
                 .id(video.id)
                 .withVideo(video)
+                .onClick { DetailActivity.launch(activity, videosList, video) }
                 .addTo(this)
         }
     }

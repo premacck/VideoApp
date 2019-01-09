@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
     style="@style/MatchWidthWrapHeight"
+    android:foreground="@drawable/ripple_light_rect"
     android:layout_marginBottom="15dp">
 
     <ImageView
@@ -26,7 +28,6 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:singleLine="true"
-        android:text="@string/lorem_ipsum"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -41,7 +42,6 @@
         android:paddingTop="6dp"
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"
-        android:text="@string/lorem_ipsum"
         android:textColor="@android:color/white" />
 
     <View

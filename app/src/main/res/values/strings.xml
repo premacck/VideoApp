@@ -10,4 +10,8 @@
     <string name="sign_in">Sign in</string>
     <string name="connect_with_google">Connect with Google</string>
     <string name="something_is_not_right">Something is not right. Pease try again</string>
+    <string name="play_pause_button">Play-pause button</string>
+    <string name="videos">Videos</string>
+    <string name="current_video">currentVideo</string>
+    <string name="related_videos">Related videos</string>
 </resources>

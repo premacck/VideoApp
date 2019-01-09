@@ -1,12 +1,16 @@
 package com.example.prem.videoapp.presenter.home
 
 import android.content.Context
-import com.android.volley.*
-import com.android.volley.toolbox.*
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
+import com.android.volley.toolbox.Volley
 import com.example.prem.videoapp.VideoApp.Companion.GSON
 import com.example.prem.videoapp.data.local.Video
 import com.google.gson.reflect.TypeToken
-import org.jetbrains.anko.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class HomeActivityPresenter constructor(context: Context) {
 
@@ -41,7 +45,7 @@ class HomeActivityPresenter constructor(context: Context) {
                         listener.handleResponse(
                             GSON.fromJson(
                                 response.toString(),
-                                object : TypeToken<List<Video>>() {}.type
+                                object : TypeToken<ArrayList<Video>>() {}.type
                             )
                         )
                     }

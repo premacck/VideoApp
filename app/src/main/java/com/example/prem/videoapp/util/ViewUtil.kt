@@ -3,12 +3,15 @@ package com.example.prem.videoapp.util
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.TypedValue
-import android.view.*
 import android.view.MotionEvent.*
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AlertDialog
 import com.example.prem.videoapp.R
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.sdk27.coroutines.onTouch
 
@@ -93,7 +96,7 @@ fun View.onReducingClick(launchDelay: Long = 100, action: () -> Unit) {
     onDebouncingClick { this.context.doAfterDelay(launchDelay) { action() } }
 }
 
-fun View.onElevatingClick(launchDelay: Long = 100, elevateBy: Float = 8f, action: () -> Unit) {
+fun View.onElevatingClick(launchDelay: Long = 100, elevateBy: Float = 4f, action: () -> Unit) {
     lateinit var originPoint: ArrayList<Float>
     val originalElevation = elevation
     val finalElevation = elevation + getDp(elevateBy)

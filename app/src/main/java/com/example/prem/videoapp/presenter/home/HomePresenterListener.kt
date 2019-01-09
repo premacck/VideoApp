@@ -9,7 +9,7 @@ interface HomePresenterListener {
 
     fun onRequestDone()
 
-    fun handleResponse(videoList: List<Video>)
+    fun handleResponse(videoList: ArrayList<Video>)
 
     fun handleError(error: VolleyError)
 }
