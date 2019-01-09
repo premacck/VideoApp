@@ -5,7 +5,7 @@ import com.android.volley.VolleyError
 import com.example.prem.videoapp.R
 import com.example.prem.videoapp.base.BaseActivity
 import com.example.prem.videoapp.data.local.Video
-import com.example.prem.videoapp.presenter.*
+import com.example.prem.videoapp.presenter.home.*
 import com.example.prem.videoapp.ui.controller.HomeVideosListController
 import com.example.prem.videoapp.util.*
 import kotlinx.android.synthetic.main.activity_main.*
