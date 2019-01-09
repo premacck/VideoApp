@@ -7,6 +7,7 @@ import com.example.prem.videoapp.R
 import com.example.prem.videoapp.base.BaseActivity
 import com.example.prem.videoapp.data.local.onUserLoggedIn
 import com.example.prem.videoapp.util.*
+import com.google.android.gms.common.Scopes.*
 import com.jaychang.sa.*
 import com.jaychang.sa.google.SimpleAuth
 import kotlinx.android.synthetic.main.activity_login.*
@@ -44,7 +45,7 @@ class LoginActivity : BaseActivity() {
 
     private fun setListeners() {
         google_login.onClick {
-            SimpleAuth.connectGoogle(arrayListOf("https://www.googleapis.com/auth/youtube", "https://www.googleapis.com/auth/youtube.upload"), object :
+            SimpleAuth.connectGoogle(arrayListOf(EMAIL, PROFILE), object :
                 AuthCallback {
                 override fun onSuccess(socialUser: SocialUser?) {
                     socialUser?.run {
