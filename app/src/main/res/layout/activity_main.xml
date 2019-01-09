@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.example.prem.videoapp.util.ShimmerRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                      xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                      xmlns:tools="http://schemas.android.com/tools"
-                                                      android:id="@+id/shimmer_layout"
-                                                      style="@style/MatchWidthMatchHeight"
-                                                      app:angle="cw_90"
-                                                      app:auto_start="true"
-                                                      app:dropOff="0.2"
-                                                      app:intensity="0.5"
-                                                      app:repeat_mode="restart"
-                                                      app:shape="linear"
-                                                      app:tilt="45">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shimmer_layout"
+    style="@style/MatchWidthMatchHeight"
+    app:repeat_mode="restart">
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/videos_list"
-            style="@style/MatchWidthMatchHeight"
-            android:clipToPadding="false"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:context=".ui.view.HomeActivity"
-            tools:listitem="@layout/item_video_thumbnail"/>
+    <com.example.prem.videoapp.ui.controller.base.EpoxyRecycler
+        android:id="@+id/videos_list"
+        style="@style/MatchWidthMatchHeight"
+        android:clipToPadding="false"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:context=".ui.view.HomeActivity"
+        tools:listitem="@layout/item_video_thumbnail" />
 
     <include
-            android:id="@+id/shimmer_view"
-            layout="@layout/shimmer_home"/>
+        android:id="@+id/shimmer_view"
+        layout="@layout/shimmer_home" />
 
 </com.example.prem.videoapp.util.ShimmerRelativeLayout>

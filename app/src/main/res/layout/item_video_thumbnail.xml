@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                style="@style/MatchWidthWrapHeight"
-                android:layout_marginBottom="15dp">
+    style="@style/MatchWidthWrapHeight"
+    android:layout_marginBottom="15dp">
 
     <ImageView
-            android:id="@+id/video_thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/thumbnail"/>
+        android:id="@+id/video_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:contentDescription="@string/thumbnail"
+        android:scaleType="centerCrop" />
 
     <View
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/black_gradient_bottom"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignTop="@+id/video_thumbnail"
+        android:layout_alignBottom="@+id/video_thumbnail"
+        android:background="@drawable/black_gradient_bottom" />
 
     <TextView
-            android:id="@+id/video_title"
-            style="@style/MatchWidthWrapHeight"
-            android:layout_above="@+id/video_description"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:singleLine="true"
-            android:text="@string/lorem_ipsum"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+        android:id="@+id/video_title"
+        style="@style/MatchWidthWrapHeight"
+        android:layout_above="@+id/video_description"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:singleLine="true"
+        android:text="@string/lorem_ipsum"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
-            android:id="@+id/video_description"
-            style="@style/MatchWidthWrapHeight"
-            android:layout_alignBottom="@+id/video_thumbnail"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:paddingStart="16dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp"
-            android:text="@string/lorem_ipsum"
-            android:textColor="@android:color/white"/>
+        android:id="@+id/video_description"
+        style="@style/MatchWidthWrapHeight"
+        android:layout_alignBottom="@+id/video_thumbnail"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingStart="16dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/lorem_ipsum"
+        android:textColor="@android:color/white" />
 
     <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/light_grey"/>
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey" />
 
 </RelativeLayout>
