@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.palette.graphics.Palette
 import com.example.prem.videoapp.R
 import com.example.prem.videoapp.base.BaseActivity
@@ -106,8 +105,7 @@ class DetailActivity : BaseActivity() {
     @Suppress("DEPRECATION")
     private fun applyColors(palette: Palette) {
         val dominantDarkColor = palette.getDarkVibrantColor(resources.getColor(R.color.primary_dark))
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = dominantDarkColor
+        setStatusBarColor(dominantDarkColor)
 
         top_bar_layout.backgroundColor = dominantDarkColor
         video_player_container.background = GradientDrawable(

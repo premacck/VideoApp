@@ -34,7 +34,6 @@ class HomeActivityPresenter constructor(context: Context) {
     }
 
     fun getVideos() {
-        listener.onRequestStarted()
         doAsync {
             val videosRequest = JsonArrayRequest(Request.Method.GET,
                 "https://interview-e18de.firebaseio.com/media.json",

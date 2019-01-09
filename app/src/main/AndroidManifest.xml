@@ -34,7 +34,7 @@
         </activity>
         <activity
             android:name=".ui.view.DetailActivity"
-            android:configChanges="orientation" />
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode" />
     </application>
 
 </manifest>

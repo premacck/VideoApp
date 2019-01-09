@@ -6,9 +6,11 @@ import android.util.TypedValue
 import android.view.MotionEvent.*
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.app.AlertDialog
 import com.example.prem.videoapp.R
+import com.example.prem.videoapp.base.BaseActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -21,6 +23,11 @@ fun Context?.doAfterDelay(delayMillis: Long, action: () -> Unit) {
         delay(delayMillis)
         this@doAfterDelay?.run { runOnUiThread { action() } }
     }
+}
+
+fun BaseActivity.setStatusBarColor(color: Int) {
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.statusBarColor = color
 }
 
 fun View.setMargin(left: Int? = null, top: Int? = null, right: Int? = null, bottom: Int? = null) {

@@ -1,5 +1,7 @@
 package com.example.prem.videoapp.ui.view
 
+import android.graphics.Color
+import android.graphics.Point
 import android.os.Bundle
 import com.android.volley.VolleyError
 import com.example.prem.videoapp.R
@@ -8,23 +10,42 @@ import com.example.prem.videoapp.data.local.Video
 import com.example.prem.videoapp.presenter.home.HomeActivityPresenter
 import com.example.prem.videoapp.presenter.home.HomePresenterListener
 import com.example.prem.videoapp.ui.controller.HomeVideosListController
+import com.example.prem.videoapp.util.doAfterDelay
 import com.example.prem.videoapp.util.makeGone
 import com.example.prem.videoapp.util.makeVisible
+import com.example.prem.videoapp.util.setStatusBarColor
 import kotlinx.android.synthetic.main.activity_home.*
+
 
 class HomeActivity : BaseActivity(), HomePresenterListener {
 
     private lateinit var presenter: HomeActivityPresenter
     private lateinit var videosController: HomeVideosListController
 
+    companion object {
+        lateinit var screenSize: IntArray
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        setStatusBarColor(Color.BLACK)
+        resolveScreenSize()
         presenter = HomeActivityPresenter.getInstance(this)
 
         initRecyclerView()
+        getVideos()
+    }
 
-        presenter.getVideos()
+    private fun getVideos() {
+        onRequestStarted()
+        doAfterDelay(100) { presenter.getVideos() }
+    }
+
+    private fun resolveScreenSize() {
+        val size = Point()
+        window.windowManager.defaultDisplay.getSize(size)
+        screenSize = intArrayOf(size.x, size.y)
     }
 
     private fun initRecyclerView() {
