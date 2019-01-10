@@ -107,7 +107,7 @@ class DetailActivity : BaseActivity() {
 
                 video_title.isSelected = true
                 video_title.text = currentVideo.title
-                video_description.text = currentVideo.description
+                video_description.text = currentVideo.description.formatLinks(it)
 
                 prepareCurrentVideo()
                 nextVideoController.setData(videosList)
