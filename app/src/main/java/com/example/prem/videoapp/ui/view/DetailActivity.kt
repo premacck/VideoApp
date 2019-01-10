@@ -10,6 +10,7 @@ import com.example.prem.videoapp.R
 import com.example.prem.videoapp.base.BaseActivity
 import com.example.prem.videoapp.data.local.Video
 import com.example.prem.videoapp.data.local.saveVideoPlayBackTime
+import com.example.prem.videoapp.presenter.detail.DetailActivityPresenter
 import com.example.prem.videoapp.ui.controller.NextVideosController
 import com.example.prem.videoapp.util.*
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -21,6 +22,7 @@ import org.jetbrains.anko.uiThread
 
 class DetailActivity : BaseActivity() {
 
+    private lateinit var presenter: DetailActivityPresenter
     private lateinit var videosList: ArrayList<Video>
     private lateinit var currentVideo: Video
     private lateinit var nextVideoController: NextVideosController
@@ -40,6 +42,7 @@ class DetailActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        presenter = DetailActivityPresenter.getInstance()
         resolveIntentParams()
         initToolbar()
         initRecyclerView()
@@ -67,8 +70,8 @@ class DetailActivity : BaseActivity() {
     }
 
     override fun onStop() {
-        super.onStop()
         if (Build.VERSION.SDK_INT > 23) releaseExoPlayer()
+        super.onStop()
     }
 
     private fun releaseExoPlayer() {
@@ -122,16 +125,19 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun prepareCurrentVideo() {
-        player = getExoPlayer()
-            .withExtractorMediaSource(this, currentVideo.url)
+        player = presenter.getExoPlayer(this, currentVideo)
             .withContainer(video_player_container)
             .applyTo(video_player)
-            .resolveCurrentPosition(this, currentVideo.id)
             .addPlayPauseListener(video_player, play_pause, video_loading_progress, this::onCurrentVideoEnded)
     }
 
     private fun onCurrentVideoEnded() {
         videosList.add(currentVideo)
         launch(this, videosList, videosList[0])
+    }
+
+    override fun onDestroy() {
+        presenter.dispose()
+        super.onDestroy()
     }
 }

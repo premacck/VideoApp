@@ -1,12 +1,13 @@
 package com.example.prem.videoapp.presenter.home
 
 import android.content.Context
+import com.example.prem.videoapp.presenter.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.net.HttpURLConnection.HTTP_OK
 
-class HomeActivityPresenter constructor(context: Context) {
+class HomeActivityPresenter private constructor(context: Context) : BasePresenter {
 
     private val listener: HomePresenterListener by lazy {
         (context as? HomePresenterListener)
@@ -36,7 +37,7 @@ class HomeActivityPresenter constructor(context: Context) {
             }
         }, { error -> listener.handleError(error) })
 
-    fun dispose() {
+    override fun dispose() {
         INSTANCE = null
     }
 }
