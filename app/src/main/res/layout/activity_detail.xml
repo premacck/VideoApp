@@ -10,7 +10,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/MatchWidthWrapHeight"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>
+            app:layout_scrollFlags="scroll|enterAlways"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -5,14 +5,13 @@ import android.os.Bundle
 import com.example.prem.videoapp.R
 import com.example.prem.videoapp.base.BaseActivity
 import com.example.prem.videoapp.data.local.Video
+import com.example.prem.videoapp.data.local.getUserProfilePicture
 import com.example.prem.videoapp.data.remote.RestApi
 import com.example.prem.videoapp.presenter.home.HomeActivityPresenter
 import com.example.prem.videoapp.presenter.home.HomePresenterListener
 import com.example.prem.videoapp.ui.controller.HomeVideosController
-import com.example.prem.videoapp.util.getVideoApplication
-import com.example.prem.videoapp.util.makeGone
-import com.example.prem.videoapp.util.makeVisible
-import com.example.prem.videoapp.util.setStatusBarColor
+import com.example.prem.videoapp.util.*
+import com.squareup.picasso.Picasso
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_home.*
 import retrofit2.Response
@@ -29,9 +28,15 @@ class HomeActivity : BaseActivity(), HomePresenterListener {
         setStatusBarColor(Color.BLACK)
         presenter = HomeActivityPresenter.getInstance(this)
 
+        prepareToolbar()
         swipe_refresh_layout.setOnRefreshListener { getVideos(true) }
         initRecyclerView()
         getVideos(false)
+    }
+
+    private fun prepareToolbar() {
+        Picasso.get().load(getUserProfilePicture()).into(profile_picture)
+        profile_picture.onDebouncingClick { ProfileDialog(this).show() }
     }
 
     private fun getVideos(isRefreshing: Boolean) {

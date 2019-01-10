@@ -51,6 +51,8 @@ fun Context.logoutUser() {
         .apply()
 }
 
+fun Context.getUserProfilePicture(): String? = getSharedPrefs().getString(PROFILE_PICTURE_URL, null)
+
 fun Context.saveVideoPlayBackTime(id: String, currentPosition: Long) =
     getSharedPrefs().edit().putLong(VIDEO_PLAYBACK_TIME + id, currentPosition).apply()
 

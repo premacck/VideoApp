@@ -1,28 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.prem.videoapp.util.ShimmerRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/shimmer_layout"
-    style="@style/MatchWidthMatchHeight"
-    android:animateLayoutChanges="true"
-    app:repeat_mode="restart">
+    style="@style/MatchWidthMatchHeight">
 
-    <include
-        android:id="@+id/shimmer_view"
-        layout="@layout/shimmer_home" />
+    <com.google.android.material.appbar.AppBarLayout style="@style/MatchWidthWrapHeight">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        style="@style/MatchWidthMatchHeight">
+        <androidx.appcompat.widget.Toolbar
+            style="@style/MatchWidthWrapHeight"
+            app:contentInsetEnd="16dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="@string/your_videos"
+            app:titleTextColor="@android:color/white">
 
-        <com.example.prem.videoapp.ui.controller.base.EpoxyRecycler
-            android:id="@+id/videos_list"
-            style="@style/MatchWidthMatchHeight"
-            android:clipToPadding="false"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_video_thumbnail" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                android:layout_gravity="end|center_vertical">
 
-</com.example.prem.videoapp.util.ShimmerRelativeLayout>
+                <ImageButton
+                    android:id="@+id/profile_picture"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/profile_picture"
+                    android:scaleType="centerInside" />
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.example.prem.videoapp.util.ShimmerRelativeLayout
+        android:id="@+id/shimmer_layout"
+        style="@style/MatchWidthMatchHeight"
+        android:animateLayoutChanges="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:repeat_mode="restart">
+
+        <include
+            android:id="@+id/shimmer_view"
+            layout="@layout/shimmer_home" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            style="@style/MatchWidthMatchHeight">
+
+            <com.example.prem.videoapp.ui.controller.base.EpoxyRecycler
+                android:id="@+id/videos_list"
+                style="@style/MatchWidthMatchHeight"
+                android:clipToPadding="false"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_video_thumbnail" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </com.example.prem.videoapp.util.ShimmerRelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

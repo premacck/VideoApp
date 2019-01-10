@@ -16,4 +16,7 @@
     <string name="current_video">currentVideo</string>
     <string name="related_videos">Related videos</string>
     <string name="back">Back</string>
+    <string name="profile_picture">profile picture</string>
+    <string name="logout">Logout</string>
+    <string name="your_videos">Your videos</string>
 </resources>
