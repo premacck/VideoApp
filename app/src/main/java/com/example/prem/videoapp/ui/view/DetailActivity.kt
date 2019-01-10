@@ -10,7 +10,7 @@ import com.example.prem.videoapp.R
 import com.example.prem.videoapp.base.BaseActivity
 import com.example.prem.videoapp.data.local.Video
 import com.example.prem.videoapp.data.local.saveVideoPlayBackTime
-import com.example.prem.videoapp.ui.controller.NextVideosListController
+import com.example.prem.videoapp.ui.controller.NextVideosController
 import com.example.prem.videoapp.util.*
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.squareup.picasso.Picasso
@@ -23,7 +23,7 @@ class DetailActivity : BaseActivity() {
 
     private lateinit var videosList: ArrayList<Video>
     private lateinit var currentVideo: Video
-    private lateinit var nextVideoController: NextVideosListController
+    private lateinit var nextVideoController: NextVideosController
     private var player: SimpleExoPlayer? = null
 
     companion object {
@@ -41,9 +41,17 @@ class DetailActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         resolveIntentParams()
+        initToolbar()
         initRecyclerView()
+    }
 
-        back_btn.onDebouncingClick { onBackPressed() }
+    private fun initToolbar() {
+        setSupportActionBar(toolbar)
+        supportActionBar?.run {
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_left_arrow)
+            title = null
+        }
     }
 
     override fun onStart() {
@@ -69,7 +77,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun initRecyclerView() {
-        nextVideoController = NextVideosListController(this)
+        nextVideoController = NextVideosController(this)
         next_videos_list.setController(nextVideoController)
     }
 
@@ -102,12 +110,11 @@ class DetailActivity : BaseActivity() {
         }
     }
 
-    @Suppress("DEPRECATION")
     private fun applyColors(palette: Palette) {
-        val dominantDarkColor = palette.getDarkVibrantColor(resources.getColor(R.color.primary_dark))
+        val dominantDarkColor = palette.getDarkVibrantColor(findColor(R.color.primary_dark))
         setStatusBarColor(dominantDarkColor)
 
-        top_bar_layout.backgroundColor = dominantDarkColor
+        toolbar.backgroundColor = dominantDarkColor
         video_player_container.background = GradientDrawable(
             GradientDrawable.Orientation.TOP_BOTTOM,
             intArrayOf(dominantDarkColor, Color.TRANSPARENT)

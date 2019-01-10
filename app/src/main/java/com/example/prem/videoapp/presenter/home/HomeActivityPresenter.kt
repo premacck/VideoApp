@@ -1,25 +1,16 @@
 package com.example.prem.videoapp.presenter.home
 
 import android.content.Context
-import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.Volley
-import com.example.prem.videoapp.VideoApp.Companion.GSON
-import com.example.prem.videoapp.data.local.Video
-import com.google.gson.reflect.TypeToken
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import java.net.HttpURLConnection.HTTP_OK
 
 class HomeActivityPresenter constructor(context: Context) {
 
     private val listener: HomePresenterListener by lazy {
         (context as? HomePresenterListener)
             ?: throw RuntimeException(context.toString() + " must implement HomePresenterListener")
-    }
-    private val requestQueue: RequestQueue by lazy {
-        Volley.newRequestQueue(context.applicationContext)
     }
 
     companion object {
@@ -33,33 +24,19 @@ class HomeActivityPresenter constructor(context: Context) {
         }
     }
 
-    fun getVideos() {
-        doAsync {
-            val videosRequest = JsonArrayRequest(Request.Method.GET,
-                "https://interview-e18de.firebaseio.com/media.json",
-                null,
-                Response.Listener { response ->
-                    uiThread {
-                        listener.onRequestDone()
-                        listener.handleResponse(
-                            GSON.fromJson(
-                                response.toString(),
-                                object : TypeToken<ArrayList<Video>>() {}.type
-                            )
-                        )
-                    }
-                },
-                Response.ErrorListener { error ->
-                    uiThread {
-                        listener.onRequestDone()
-                        listener.handleError(error)
-                    }
-                })
-            addToRequestQueue(videosRequest)
-        }
-    }
+    fun getVideos(): Disposable = listener.restApi().getVideos()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSubscribe { listener.onRequestStarted() }
+        .doOnTerminate { listener.onRequestDone() }
+        .subscribe({ response ->
+            when (response.code()) {
+                HTTP_OK -> response.body()?.run { listener.handleResponse(this) } ?: listener.handleError(response)
+                else -> listener.handleError(response)
+            }
+        }, { error -> listener.handleError(error) })
 
-    private fun <T> addToRequestQueue(req: Request<T>) {
-        requestQueue.add(req)
+    fun dispose() {
+        INSTANCE = null
     }
 }

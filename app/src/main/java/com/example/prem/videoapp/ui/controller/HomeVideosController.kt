@@ -8,7 +8,7 @@ import com.example.prem.videoapp.ui.modelview.TextModelViewModel_
 import com.example.prem.videoapp.ui.modelview.VideoThumbModelViewModel_
 import com.example.prem.videoapp.ui.view.DetailActivity
 
-class HomeVideosListController(private val activity: BaseActivity) : EpoxyController3<ArrayList<Video>, Boolean, String>() {
+class HomeVideosController(private val activity: BaseActivity) : EpoxyController3<ArrayList<Video>, Boolean, String>() {
 
     @AutoModel
     lateinit var textModelView: TextModelViewModel_

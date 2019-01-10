@@ -1,118 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/MatchWidthMatchHeight"
-    tools:context=".ui.view.DetailActivity">
+    style="@style/MatchWidthMatchHeight">
 
-    <LinearLayout
-        style="@style/MatchWidthWrapHeight"
-        android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/MatchWidthWrapHeight">
 
-        <FrameLayout
-            android:id="@+id/top_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageButton
-                android:id="@+id/back_btn"
-                android:layout_width="80dp"
-                android:layout_height="42dp"
-                android:src="@drawable/ic_left_arrow"
-                android:background="@android:color/transparent"
-                android:scaleType="center"
-                android:contentDescription="@string/back" />
-
-        </FrameLayout>
-
-        <com.google.android.exoplayer2.ui.AspectRatioFrameLayout
-            android:id="@+id/video_player_container"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             style="@style/MatchWidthWrapHeight"
-            android:animateLayoutChanges="true"
-            android:focusableInTouchMode="true"
-            android:minHeight="1dp"
-            app:resize_mode="fixed_width">
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"/>
 
-            <com.google.android.exoplayer2.ui.PlayerView
-                android:id="@+id/video_player"
-                style="@style/MatchWidthMatchHeight"
-                android:layout_gravity="center"
-                app:resize_mode="fill"
-                app:shutter_background_color="@android:color/black"
-                app:surface_type="texture_view"
-                app:use_controller="false" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-            <ImageView
-                android:id="@+id/play_pause"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/play_pause_button"
-                android:src="@drawable/play" />
+    <androidx.core.widget.NestedScrollView
+        style="@style/MatchWidthMatchHeight"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.view.DetailActivity">
 
-            <ProgressBar
-                android:id="@+id/video_loading_progress"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-        </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/light_grey" />
-
-        <TextView
-            android:id="@+id/video_title"
+        <LinearLayout
             style="@style/MatchWidthWrapHeight"
-            android:ellipsize="marquee"
-            android:paddingStart="16dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="10dp"
-            android:singleLine="true"
-            android:textColor="@color/color_grey_333"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/light_grey" />
+            <com.google.android.exoplayer2.ui.AspectRatioFrameLayout
+                android:id="@+id/video_player_container"
+                style="@style/MatchWidthWrapHeight"
+                android:animateLayoutChanges="true"
+                android:focusableInTouchMode="true"
+                android:minHeight="1dp"
+                app:resize_mode="fixed_width">
 
-        <TextView
-            android:id="@+id/video_description"
-            style="@style/MatchWidthWrapHeight"
-            android:paddingStart="16dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp"
-            android:textColor="@color/color_grey_666" />
+                <com.google.android.exoplayer2.ui.PlayerView
+                    android:id="@+id/video_player"
+                    style="@style/MatchWidthMatchHeight"
+                    android:layout_gravity="center"
+                    app:resize_mode="fill"
+                    app:shutter_background_color="@android:color/black"
+                    app:surface_type="texture_view"
+                    app:use_controller="false" />
 
-        <TextView
-            style="@style/WrapWidthWrapHeight"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="@string/related_videos"
-            android:textColor="@color/color_grey_666"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/play_pause"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/play_pause_button"
+                    android:src="@drawable/play" />
 
-        <com.example.prem.videoapp.ui.controller.base.EpoxyRecycler
-            android:id="@+id/next_videos_list"
-            style="@style/MatchWidthWrapHeight"
-            android:clipToPadding="false"
-            android:nestedScrollingEnabled="false"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_video_thumb_detail" />
+                <ProgressBar
+                    android:id="@+id/video_loading_progress"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
 
-    </LinearLayout>
+            </com.google.android.exoplayer2.ui.AspectRatioFrameLayout>
 
-</androidx.core.widget.NestedScrollView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_grey" />
+
+            <TextView
+                android:id="@+id/video_title"
+                style="@style/MatchWidthWrapHeight"
+                android:ellipsize="marquee"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="10dp"
+                android:singleLine="true"
+                android:textColor="@color/color_grey_333"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/light_grey" />
+
+            <TextView
+                android:id="@+id/video_description"
+                style="@style/MatchWidthWrapHeight"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="16dp"
+                android:textColor="@color/color_grey_666" />
+
+            <TextView
+                style="@style/WrapWidthWrapHeight"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/related_videos"
+                android:textColor="@color/color_grey_666"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <com.example.prem.videoapp.ui.controller.base.EpoxyRecycler
+                android:id="@+id/next_videos_list"
+                style="@style/MatchWidthWrapHeight"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_video_thumb_detail" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

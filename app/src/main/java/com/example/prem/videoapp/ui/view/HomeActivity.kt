@@ -1,62 +1,57 @@
 package com.example.prem.videoapp.ui.view
 
 import android.graphics.Color
-import android.graphics.Point
 import android.os.Bundle
-import com.android.volley.VolleyError
 import com.example.prem.videoapp.R
 import com.example.prem.videoapp.base.BaseActivity
 import com.example.prem.videoapp.data.local.Video
+import com.example.prem.videoapp.data.remote.RestApi
 import com.example.prem.videoapp.presenter.home.HomeActivityPresenter
 import com.example.prem.videoapp.presenter.home.HomePresenterListener
-import com.example.prem.videoapp.ui.controller.HomeVideosListController
-import com.example.prem.videoapp.util.doAfterDelay
+import com.example.prem.videoapp.ui.controller.HomeVideosController
+import com.example.prem.videoapp.util.getVideoApplication
 import com.example.prem.videoapp.util.makeGone
 import com.example.prem.videoapp.util.makeVisible
 import com.example.prem.videoapp.util.setStatusBarColor
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_home.*
-
+import retrofit2.Response
 
 class HomeActivity : BaseActivity(), HomePresenterListener {
 
     private lateinit var presenter: HomeActivityPresenter
-    private lateinit var videosController: HomeVideosListController
-
-    companion object {
-        lateinit var screenSize: IntArray
-    }
+    private lateinit var videosController: HomeVideosController
+    private lateinit var subscription: Disposable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setStatusBarColor(Color.BLACK)
-        resolveScreenSize()
         presenter = HomeActivityPresenter.getInstance(this)
 
+        swipe_refresh_layout.setOnRefreshListener { getVideos() }
         initRecyclerView()
         getVideos()
     }
 
     private fun getVideos() {
-        onRequestStarted()
-        doAfterDelay(100) { presenter.getVideos() }
-    }
-
-    private fun resolveScreenSize() {
-        val size = Point()
-        window.windowManager.defaultDisplay.getSize(size)
-        screenSize = intArrayOf(size.x, size.y)
+        subscription = presenter.getVideos()
     }
 
     private fun initRecyclerView() {
-        videosController = HomeVideosListController(this)
-        videos_list.setController(videosController)
+        videosController = HomeVideosController(this)
+        videos_list.adapter = videosController.adapter
     }
+
+    override fun restApi(): RestApi = getVideoApplication().restApi
 
     override fun handleResponse(videoList: ArrayList<Video>) = videosController.setData(videoList, false, null)
 
-    override fun handleError(error: VolleyError) =
-        videosController.setData(null, true, error.message ?: error.localizedMessage ?: error.networkResponse.statusCode.toString())
+    override fun handleError(error: Throwable) =
+        videosController.setData(null, true, error.message ?: error.localizedMessage)
+
+    override fun handleError(response: Response<ArrayList<Video>>) =
+        videosController.setData(null, true, "Error ${response.code()}: ${response.message() ?: getString(R.string.something_is_not_right)}")
 
     override fun onRequestStarted() {
         shimmer_layout.startShimmerAnimation()
@@ -64,7 +59,15 @@ class HomeActivity : BaseActivity(), HomePresenterListener {
     }
 
     override fun onRequestDone() {
+        if (swipe_refresh_layout.isRefreshing) swipe_refresh_layout.isRefreshing = false
         shimmer_layout.stopShimmerAnimation()
         shimmer_view.makeGone()
+        videos_list.makeVisible()
+    }
+
+    override fun onDestroy() {
+        presenter.dispose()
+        if (!subscription.isDisposed) subscription.dispose()
+        super.onDestroy()
     }
 }

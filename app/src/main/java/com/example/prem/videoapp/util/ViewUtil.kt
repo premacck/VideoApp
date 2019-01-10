@@ -1,21 +1,18 @@
 package com.example.prem.videoapp.util
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.util.TypedValue
-import android.view.MotionEvent.*
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.animation.DecelerateInterpolator
+import androidx.annotation.ColorRes
 import androidx.appcompat.app.AlertDialog
-import com.example.prem.videoapp.R
+import com.example.prem.videoapp.VideoApp
 import com.example.prem.videoapp.base.BaseActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import org.jetbrains.anko.runOnUiThread
-import org.jetbrains.anko.sdk27.coroutines.onTouch
 
 @Suppress("DeferredResultUnused")
 fun Context?.doAfterDelay(delayMillis: Long, action: () -> Unit) {
@@ -42,6 +39,9 @@ fun View.setMargin(left: Int? = null, top: Int? = null, right: Int? = null, bott
 fun Context.getDp(dp: Float): Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics)
 
 fun View.getDp(dp: Float): Float = context.getDp(dp)
+
+@Suppress("DEPRECATION")
+fun Context.findColor(@ColorRes colorRes: Int) = resources.getColor(colorRes)
 
 fun View.makeVisible() {
     if (visibility != View.VISIBLE) visibility = View.VISIBLE
@@ -74,66 +74,4 @@ fun View.onDebouncingClick(action: () -> Unit) {
     }
 }
 
-fun View.onReducingClick(launchDelay: Long = 100, action: () -> Unit) {
-    var originPoint: ArrayList<Float> = ArrayList()
-    onTouch { _, event ->
-        when (event.action) {
-            ACTION_DOWN -> {
-                originPoint = arrayListOf(event.rawX, event.rawY)
-                animatorOf(R.animator.reduce_size).start()
-            }
-            ACTION_CANCEL, ACTION_UP -> animatorOf(R.animator.original_size).start()
-            ACTION_MOVE -> {
-                try {
-                    if (originPoint.isEmpty()) originPoint = arrayListOf(event.rawX, event.rawY)
-
-                    if (!originPoint.isEmpty()) {
-                        val deltaX = Math.abs(originPoint[0] - event.rawX)
-                        val deltaY = Math.abs(originPoint[1] - event.rawY)
-                        if (deltaX > 1 && deltaY > 1) {
-                            animatorOf(R.animator.original_size).start()
-                        }
-                    }
-                } catch (e: Exception) {
-                    animatorOf(R.animator.original_size).start()
-                }
-            }
-        }
-    }
-    onDebouncingClick { this.context.doAfterDelay(launchDelay) { action() } }
-}
-
-fun View.onElevatingClick(launchDelay: Long = 100, elevateBy: Float = 4f, action: () -> Unit) {
-    lateinit var originPoint: ArrayList<Float>
-    val originalElevation = elevation
-    val finalElevation = elevation + getDp(elevateBy)
-    val elevateUpAnimation = ValueAnimator.ofFloat(originalElevation, finalElevation).setDuration(80)
-    elevateUpAnimation.interpolator = DecelerateInterpolator()
-    elevateUpAnimation.addUpdateListener { elevation = it.animatedValue as Float }
-
-    val elevateDownAnimation = ValueAnimator.ofFloat(finalElevation, originalElevation).setDuration(100)
-    elevateDownAnimation.addUpdateListener { elevation = it.animatedValue as Float }
-    elevateDownAnimation.interpolator = DecelerateInterpolator()
-    elevateDownAnimation.startDelay = 80
-    onTouch { _, event ->
-        when (event.action) {
-            ACTION_DOWN -> {
-                originPoint = arrayListOf(event.rawX, event.rawY)
-                elevateUpAnimation.start()
-            }
-            ACTION_CANCEL, ACTION_UP -> elevateDownAnimation.start()
-            ACTION_MOVE -> {
-                if (originPoint.isEmpty()) originPoint = arrayListOf(event.rawX, event.rawY)
-
-                if (!originPoint.isEmpty()) {
-                    val deltaX = Math.abs(originPoint[0] - event.rawX)
-                    val deltaY = Math.abs(originPoint[1] - event.rawY)
-                    if (deltaX > 1 && deltaY > 1) {
-                        elevateDownAnimation.start()
-                    }
-                }
-            }
-        }
-    }
-    onDebouncingClick { this.context.doAfterDelay(launchDelay) { action() } }
-}
+fun BaseActivity.getVideoApplication() = application as VideoApp

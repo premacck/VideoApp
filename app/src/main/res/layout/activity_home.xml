@@ -4,19 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shimmer_layout"
     style="@style/MatchWidthMatchHeight"
+    android:animateLayoutChanges="true"
     app:repeat_mode="restart">
-
-    <com.example.prem.videoapp.ui.controller.base.EpoxyRecycler
-        android:id="@+id/videos_list"
-        style="@style/MatchWidthMatchHeight"
-        android:clipToPadding="false"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_video_thumbnail" />
 
     <include
         android:id="@+id/shimmer_view"
         layout="@layout/shimmer_home" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        style="@style/MatchWidthMatchHeight">
+
+        <com.example.prem.videoapp.ui.controller.base.EpoxyRecycler
+            android:id="@+id/videos_list"
+            style="@style/MatchWidthMatchHeight"
+            android:clipToPadding="false"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_video_thumbnail" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </com.example.prem.videoapp.util.ShimmerRelativeLayout>
