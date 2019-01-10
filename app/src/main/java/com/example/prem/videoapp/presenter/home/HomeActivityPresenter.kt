@@ -25,10 +25,10 @@ class HomeActivityPresenter private constructor(context: Context) : BasePresente
         }
     }
 
-    fun getVideos(): Disposable = listener.restApi().getVideos()
+    fun getVideos(isRefreshing: Boolean): Disposable = listener.restApi().getVideos()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .doOnSubscribe { listener.onRequestStarted() }
+        .doOnSubscribe { if (!isRefreshing) listener.onRequestStarted() }
         .doOnTerminate { listener.onRequestDone() }
         .subscribe({ response ->
             when (response.code()) {

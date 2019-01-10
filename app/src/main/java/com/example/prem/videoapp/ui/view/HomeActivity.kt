@@ -29,13 +29,13 @@ class HomeActivity : BaseActivity(), HomePresenterListener {
         setStatusBarColor(Color.BLACK)
         presenter = HomeActivityPresenter.getInstance(this)
 
-        swipe_refresh_layout.setOnRefreshListener { getVideos() }
+        swipe_refresh_layout.setOnRefreshListener { getVideos(true) }
         initRecyclerView()
-        getVideos()
+        getVideos(false)
     }
 
-    private fun getVideos() {
-        subscription = presenter.getVideos()
+    private fun getVideos(isRefreshing: Boolean) {
+        subscription = presenter.getVideos(isRefreshing)
     }
 
     private fun initRecyclerView() {
