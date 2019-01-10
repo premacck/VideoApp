@@ -12,28 +12,20 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@id/exo_rew"
             style="@style/ExoMediaButton.Rewind"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/exo_controls_rewind_description"
-            android:padding="10dp" />
+            android:contentDescription="@string/exo_controls_rewind_description" />
 
         <ImageButton
-            android:id="@id/exo_play"
             style="@style/ExoMediaButton.Play"
             android:contentDescription="@string/exo_controls_play_description" />
 
         <ImageButton
-            android:id="@id/exo_pause"
             style="@style/ExoMediaButton.Pause"
             android:contentDescription="@string/exo_controls_pause_description" />
 
         <ImageButton
-            android:id="@id/exo_ffwd"
             style="@style/ExoMediaButton.FastForward"
-            android:layout_marginStart="10dp"
-            android:contentDescription="@string/exo_controls_fastforward_description"
-            android:padding="10dp" />
+            android:contentDescription="@string/exo_controls_fastforward_description" />
 
     </LinearLayout>
 

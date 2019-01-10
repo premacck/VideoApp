@@ -55,29 +55,35 @@
     </style>
 
     <style name="ExoMediaButton.Play">
+        <item name="android:id">@id/exo_play</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/ic_play</item>
     </style>
 
     <style name="ExoMediaButton.Pause">
+        <item name="android:id">@id/exo_pause</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/ic_pause</item>
     </style>
 
     <style name="ExoMediaButton.Rewind">
+        <item name="android:id">@id/exo_rew</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:foreground">@drawable/ripple_dark_oval</item>
         <item name="android:src">@drawable/ic_rewind</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:padding">15dp</item>
     </style>
 
     <style name="ExoMediaButton.FastForward">
+        <item name="android:id">@id/exo_ffwd</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:foreground">@drawable/ripple_dark_oval</item>
         <item name="android:src">@drawable/ic_fast_forward</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:padding">15dp</item>
     </style>
 
 </resources>
