@@ -1,6 +1,5 @@
 package com.example.prem.videoapp.ui.view
 
-import android.graphics.Color
 import android.os.Bundle
 import com.example.prem.videoapp.R
 import com.example.prem.videoapp.base.BaseActivity
@@ -25,7 +24,7 @@ class HomeActivity : BaseActivity(), HomePresenterListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        setStatusBarColor(Color.BLACK)
+        setStatusBarColor(findColor(R.color.primary))
         presenter = HomeActivityPresenter.getInstance(this)
 
         prepareToolbar()
