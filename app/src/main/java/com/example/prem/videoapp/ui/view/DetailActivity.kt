@@ -16,6 +16,7 @@ import com.example.prem.videoapp.util.*
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.exo_playback_control_view.*
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -102,6 +103,7 @@ class DetailActivity : BaseActivity() {
 
                 video_loading_progress.makeGone()
                 video_player_container.setAspectRatio(thumb.width / thumb.height.toFloat())
+                arrayOf(exo_rew, exo_play, exo_pause, exo_ffwd).reduceEachOnClick()
 
                 video_title.isSelected = true
                 video_title.text = currentVideo.title
@@ -128,7 +130,7 @@ class DetailActivity : BaseActivity() {
         player = presenter.getExoPlayer(this, currentVideo)
             .withContainer(video_player_container)
             .applyTo(video_player)
-            .addPlayPauseListener(video_player, play_pause, video_loading_progress, this::onCurrentVideoEnded)
+            .addPlayPauseListener(video_player, video_loading_progress, this::onCurrentVideoEnded)
     }
 
     private fun onCurrentVideoEnded() {

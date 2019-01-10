@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MatchWidthMatchHeight">
 
-    <com.google.android.material.appbar.AppBarLayout
-        style="@style/MatchWidthWrapHeight">
+    <com.google.android.material.appbar.AppBarLayout style="@style/MatchWidthWrapHeight">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/MatchWidthWrapHeight"
-            app:layout_scrollFlags="scroll|enterAlways"/>
+            app:layout_scrollFlags="scroll|enterAlways" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -28,25 +27,20 @@
                 style="@style/MatchWidthWrapHeight"
                 android:animateLayoutChanges="true"
                 android:focusableInTouchMode="true"
-                android:minHeight="1dp"
                 app:resize_mode="fixed_width">
 
                 <com.google.android.exoplayer2.ui.PlayerView
                     android:id="@+id/video_player"
                     style="@style/MatchWidthMatchHeight"
                     android:layout_gravity="center"
+                    app:controller_layout_id="@layout/exo_playback_control_view"
                     app:resize_mode="fill"
+                    app:rewind_increment="10000"
+                    app:fastforward_increment="10000"
+                    app:show_timeout="2000"
                     app:shutter_background_color="@android:color/black"
                     app:surface_type="texture_view"
-                    app:use_controller="false" />
-
-                <ImageView
-                    android:id="@+id/play_pause"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/play_pause_button"
-                    android:src="@drawable/play" />
+                    app:use_controller="true" />
 
                 <ProgressBar
                     android:id="@+id/video_loading_progress"
@@ -94,8 +88,8 @@
 
             <TextView
                 style="@style/WrapWidthWrapHeight"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/related_videos"
                 android:textColor="@color/color_grey_666"
                 android:textSize="18sp"

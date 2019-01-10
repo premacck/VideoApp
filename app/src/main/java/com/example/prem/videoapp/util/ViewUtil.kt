@@ -2,17 +2,20 @@ package com.example.prem.videoapp.util
 
 import android.content.Context
 import android.util.TypedValue
+import android.view.MotionEvent.*
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AlertDialog
+import com.example.prem.videoapp.R
 import com.example.prem.videoapp.VideoApp
 import com.example.prem.videoapp.base.BaseActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import org.jetbrains.anko.runOnUiThread
+import org.jetbrains.anko.sdk27.coroutines.onTouch
 
 @Suppress("DeferredResultUnused")
 fun Context?.doAfterDelay(delayMillis: Long, action: () -> Unit) {
@@ -75,3 +78,33 @@ fun View.onDebouncingClick(action: () -> Unit) {
 }
 
 fun BaseActivity.getVideoApplication() = application as VideoApp
+
+fun <T : View> Array<T>.reduceEachOnClick() = forEach { it.reduceOnClick() }
+
+fun View.reduceOnClick() {
+    var originPoint: ArrayList<Float> = ArrayList()
+    onTouch { _, event ->
+        when (event.action) {
+            ACTION_DOWN -> {
+                originPoint = arrayListOf(event.rawX, event.rawY)
+                animatorOf(R.animator.reduce_size).start()
+            }
+            ACTION_CANCEL, ACTION_UP -> animatorOf(R.animator.original_size).start()
+            ACTION_MOVE -> {
+                try {
+                    if (originPoint.isEmpty()) originPoint = arrayListOf(event.rawX, event.rawY)
+
+                    if (!originPoint.isEmpty()) {
+                        val deltaX = Math.abs(originPoint[0] - event.rawX)
+                        val deltaY = Math.abs(originPoint[1] - event.rawY)
+                        if (deltaX > 1 && deltaY > 1) {
+                            animatorOf(R.animator.original_size).start()
+                        }
+                    }
+                } catch (e: Exception) {
+                    animatorOf(R.animator.original_size).start()
+                }
+            }
+        }
+    }
+}

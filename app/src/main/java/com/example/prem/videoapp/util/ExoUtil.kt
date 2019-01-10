@@ -2,7 +2,6 @@ package com.example.prem.videoapp.util
 
 import android.content.Context
 import android.net.Uri
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import com.example.prem.videoapp.R
@@ -21,10 +20,12 @@ fun Player.isPlaying() = playWhenReady
 
 fun Player.play() {
     playWhenReady = true
+    playbackState
 }
 
 fun Player.pause(): Long {
     playWhenReady = false
+    playbackState
     return currentPosition
 }
 
@@ -34,7 +35,6 @@ fun Player.toggle() {
 
 fun SimpleExoPlayer.addPlayPauseListener(
     playerView: PlayerView?,
-    playPauseBtn: View? = null,
     loadingProgressBar: ProgressBar? = null,
     onEndedAction: () -> Unit = {}
 ): SimpleExoPlayer {
@@ -44,17 +44,8 @@ fun SimpleExoPlayer.addPlayPauseListener(
             playerView?.keepScreenOn = active
 
             when (playbackState) {
-                Player.STATE_IDLE -> playPauseBtn?.makeVisible()
-                Player.STATE_BUFFERING -> {
-                    playPauseBtn?.makeGone()
-                    loadingProgressBar?.makeVisible()
-                }
-                Player.STATE_READY -> {
-                    if (playWhenReady) {
-                        playPauseBtn?.makeGone()
-                    } else playPauseBtn?.makeVisible()
-                    loadingProgressBar?.makeGone()
-                }
+                Player.STATE_BUFFERING -> loadingProgressBar?.makeVisible()
+                Player.STATE_READY -> loadingProgressBar?.makeGone()
                 Player.STATE_ENDED -> onEndedAction()
             }
         }

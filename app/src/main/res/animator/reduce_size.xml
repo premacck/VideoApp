@@ -6,14 +6,14 @@
         android:duration="80"
         android:interpolator="@android:anim/decelerate_interpolator"
         android:propertyName="scaleX"
-        android:valueTo="0.94f"
+        android:valueTo="0.90f"
         android:valueType="floatType" />
 
     <objectAnimator
         android:duration="80"
         android:interpolator="@android:anim/decelerate_interpolator"
         android:propertyName="scaleY"
-        android:valueTo="0.94f"
+        android:valueTo="0.90f"
         android:valueType="floatType" />
 
 </set>

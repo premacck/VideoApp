@@ -54,4 +54,30 @@
         <item name="android:layout_marginTop">5dp</item>
     </style>
 
+    <style name="ExoMediaButton.Play">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_play</item>
+    </style>
+
+    <style name="ExoMediaButton.Pause">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_pause</item>
+    </style>
+
+    <style name="ExoMediaButton.Rewind">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:foreground">@drawable/ripple_dark_oval</item>
+        <item name="android:src">@drawable/ic_rewind</item>
+    </style>
+
+    <style name="ExoMediaButton.FastForward">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:foreground">@drawable/ripple_dark_oval</item>
+        <item name="android:src">@drawable/ic_fast_forward</item>
+    </style>
+
 </resources>
